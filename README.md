@@ -20,4 +20,5 @@ QuestionQueue will bring the following main functionalities (for now) to the CMU
 ## Note
 
 Sprint 1 demo: https://drive.google.com/file/d/1jCQDfnEMF9QuLn0dB6umsNjrvUp4HvUw/view?usp=sharing
+
 App URL:  https://questionq.azurewebsites.net (This url may not be valid after the Azure student credit ran out :)
