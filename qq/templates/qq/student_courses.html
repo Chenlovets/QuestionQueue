@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block title %}Select Course{% endblock %}
+{% block content %}
+
+	{% for message in messages %}
+		<div class="alert {{ message.tags }} alert-dismissible" role="alert">
+		   	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		    	<span aria-hidden="true">&times;</span>
+		    </button>
+		    {{ message }}
+		</div>
+	{% endfor %}
+
+	<div class="title">
+		<div class="row">
+			<div class="col"><br>
+				<span id="greeting">Hi，student {{ user.andrewID }} :)</span>
+			</div>
+		</div>
+	</div><br>
+
+	<div class="container"><br>
+		<div class="row">
+			<div class="col">
+				<div class="card-container-enter">
+					<div class="card">
+						<div class="card-body">
+					        <h6 class="card-title">Please enter the course number and invitation code to join new courses:</h6>
+							<form method="POST" action="enter_new_queue">
+							{% csrf_token %}
+								<div class="row ml-0 mr-0">
+									<div class="col-3 pl-0" align="center">
+										<div class="input-group mb-3">
+					                        <input type="text" name="new_course_num" placeholder="Course Number" required class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+					                    </div>
+									</div>
+									<div class="col-9 pl-0 pr-0" align="center">
+										<div class="input-group mb-3">
+					                        <input type="text" name="new_invitation_code" placeholder="Invitation Code" required class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+					                    </div>
+									</div>
+								</div>			               
+			                    <button type="submit" name="new_queue" class="btn btn-secondary btn-lg btn-block plain-btn">Enter New Course</button>
+			                </form>
+					    </div>	
+					</div>
+			    </div>		
+			</div>
+		</div><br>
+
+		{% for course in courses %}
+		<div class="row">
+			<div class="col">
+				<div class="card-container-course">
+					<div class="card">
+						<div class="card-body">
+							<div class="row">
+								<div class="col">
+						        	<h6 class="card-title">{{ course.course_number }} : {{ course.course_name }}</h6>
+					    		</div>
+					    	</div>
+					    	<div class="row ml-0 mr-0">
+					    		<div class="col-3 pl-0 pr-0" align="center">
+					    			<form action="exit_course" method="POST">
+                                    {% csrf_token %}
+                                        <input type="hidden" id="course_id" name="course_id" value="{{ course.id }}">
+					    				<button type="submit" class="btn btn-outline-secondary btn-lg btn-block plain-btn">Drop Course</button>
+					    			</form>
+					    		</div>
+					    		<div class="col-3 pr-0" align="center">
+                                    <form method="post" action="enter_leaderboard">
+                                        {% csrf_token %}
+					    			<input type="hidden" id="course_id" name="course_id" value="{{ course.id }}">
+					    			<button type="submit" class="btn btn-outline-secondary btn-lg btn-block plain-btn">Leaderboard</button>
+                                    </form>
+                                </div>
+					    		<div class="col-3 pr-0" align="center">
+					    			<input type="hidden" id="course_id" name="course_id" value="{{ course.id }}">
+					    			<a class="btn btn-outline-secondary btn-lg btn-block plain-btn" href="/my_questions/{{ course.id }}">My Questions</a>
+					    		</div>
+					    		<div class="col-3 pr-0" align="center">
+                                    <form method="post" action="enter_queue">
+                                        {% csrf_token %}
+					    			    <input type="hidden" id="course_id" name="course_id" value="{{ course.id }}">
+                                        <button type="submit" class="btn btn-outline-secondary btn-lg btn-block plain-btn">Enter Queue</button>
+                                    </form>
+					    		</div>
+					    	</div>
+					    </div>	
+					</div>
+			    </div>		
+			</div>
+		</div><br>
+		{% endfor %}
+
+	</div>
+
+{% endblock %}

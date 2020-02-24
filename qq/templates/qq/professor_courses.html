@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% block title %}Select Course{% endblock %}
+{% block content %}
+
+{% for message in messages %}
+		<div class="alert {{ message.tags }} alert-dismissible" role="alert">
+		   	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		    	<span aria-hidden="true">&times;</span>
+		    </button>
+		    {{ message }}
+		</div>
+{% endfor %}
+	
+	<div class="title">
+		<div class="row">
+			<div class="col"><br>
+				<span>Hi，professor {{ user.andrewID }} :)</span>
+			</div>
+		</div>
+	</div><br>
+
+	<div class="container"><br>
+		<div class="row">
+			<div class="col">
+				<div class="card-container-add">
+					<div class="card">
+						<div class="card-body">
+					        <h6 class="card-title">Create a new course:</h6>
+							<form method="post" action="add_new_course">
+                                {% csrf_token %}
+								<div class="row ml-0 mr-0">
+									<div class="col-6 pl-0 pr-2">
+										<input name="course_number" type="text" placeholder="Course Number" required class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+									</div>
+									<div class="col-6 pr-0 pl-2">
+										<input name="course_name" type="text" placeholder="Course Name" required class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+									</div>
+								</div><br>
+			                    <div class="input-group mb-3">
+			                        <input name="invitation_code" type="text" placeholder="Create Invitation Code for Students to Join" required class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+			                    </div>
+			                    <button type="submit" class="btn btn-secondary btn-lg btn-block plain-btn">Create New Course</button>
+			                </form>
+					    </div>	
+					</div>
+			    </div>		
+			</div>
+		</div><br>
+
+		<div class="row">
+			<div class="col">
+				<div class="card-container-enter">
+					<div class="card">
+						<div class="card-body">
+					        <h6 class="card-title">Join an existing course as instructor:</h6>
+							<form method="POST" action="join_existing_course">
+							{% csrf_token %}
+								<div class="row ml-0 mr-0">
+									<div class="col-3 pl-0" align="center">
+										<div class="input-group mb-3">
+					                        <input type="text" name="course_num" placeholder="Course Number" required class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+					                    </div>
+									</div>
+									<div class="col-9 pl-0 pr-0" align="center">
+										<div class="input-group mb-3">
+					                        <input type="text" name="invitation_code" placeholder="Invitation Code" required class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+					                    </div>
+									</div>
+								</div>			               
+			                    <button type="submit" name="join_existing_course" class="btn btn-secondary btn-lg btn-block plain-btn">Join Course</button>
+			                </form>
+					    </div>	
+					</div>
+			    </div>		
+			</div>
+		</div>
+<br>
+       {% for course in courses %}
+		<div class="row">
+			<div class="col">
+				<div class="card-container-course">
+					<div class="card">
+						<div class="card-body">
+							<div class="row">
+								<div class="col">
+                                    <input type="hidden" name="course_id" value={{course.id}}>
+						        	<h6 class="card-title">{{ course.course_number }} : {{ course.course_name }}</h6>
+					    		</div>
+					    	</div>
+					    	<div class="row ml-0 mr-0">
+                                <div class="col-4 pl-0" align="center">
+                                    <form action="delete_course" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="course_id" value={{course.id}}>
+										<button type="submit" class="btn btn-outline-secondary btn-lg btn-block plain-btn">Delete Course</button>
+
+                                    </form>
+								</div>
+                                <div class="col-4" align="center">
+					    			<form method="post" action="enter_leaderboard">
+                                        {% csrf_token %}
+					    			<input type="hidden" name="course_id" value="{{ course.id }}">
+					    			<button type="submit" class="btn btn-outline-secondary btn-lg btn-block plain-btn">Leaderboard</button>
+                                    </form>
+								</div>
+					    		<div class="col-4 pr-0" align="center">
+                                    <form method="post" action="professor_lecture">
+                                        {% csrf_token %}
+                                        <input type="hidden" id="course_id" name="course_id" value={{course.id}}>
+					    			<button type="submit" class="btn btn-outline-secondary btn-lg btn-block plain-btn" >View Lectures</button>
+                                    </form>
+					    		</div>
+					    	</div>
+					    </div>	
+					</div>
+			    </div>		
+			</div>
+		</div><br>
+        {% endfor %}
+
+	</div>
+
+{% endblock %}

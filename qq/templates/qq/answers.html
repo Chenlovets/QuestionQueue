@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load staticfiles%}
+
+{% block title %}Answer Questions{% endblock %}
+{% block navbar %}
+<div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav ml-auto mr-0">
+                    <li class="nav-item dropdown">
+                        {% if user.is_authenticated %}
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hello, {{ user.first_name }}</a>
+                        <div class="dropdown-menu text-left" aria-labelledby="navbarDropdownMenuLink">
+                        	{% if user.is_student %}
+                            <a class="dropdown-item" href="{% url 'ta_courses' %}">My Courses</a>
+                            <a class="dropdown-item" href="{% url 'student_courses' %}">Go to Student Dashboard</a>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+                            {% else %}
+                            <a class="dropdown-item" href="{% url 'professor_courses' %}">My Courses</a>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+                            {% endif %}
+                        </div>
+                        {% else %}
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Log In</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+{% endblock %}
+{% block content %}
+
+<div class="title">
+  <div class="row">
+     <div class="col"><br>
+        <input type="hidden" id="course_id"  value={{course.id}}>
+        <input type="hidden" id="lecture_id" value={{lecture.id}}>
+        <span>{{ course.course_number }} {{ course.course_name}} - {{ lecture.title}}</span>
+    </div>
+</div>
+<br>
+</div>
+
+<div class="container" id="answers">
+
+</div>
+
+{% endblock %}
+{% block js-file %}
+<script src="{% static 'js/answer.js' %}"></script>
+{% endblock %}

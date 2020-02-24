@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Check Questions{% endblock %}
+{% block content %}
+
+	<div class="title">
+		<div class="row">
+			<div class="col"><br>
+				<span>{{ course.course_number }} {{ course.course_name }}</span>
+			</div>
+		</div>
+	</div><br>
+
+    <input type="hidden" id="get_my_question" name="course_id" value="{{ course.id }}">
+
+	<div class="container">
+		<div class="row justify-content-md-center">
+			<div class="col-10">
+				<ul class="nav nav-tabs small justify-content-end" role="tablist">
+			        <li class="nav-item"><a class="nav-link input-tab" data-toggle="tab" id="get_liked_q" onclick="getLikedQuestions(this)" role="tab">Liked Questions</a></li>
+			        <li class="nav-item"><a class="nav-link active input-tab" data-toggle="tab" id="get_default" onclick="getMyQuestions(this)" href="#tab2" role="tab">My Questions</a></li>
+			    </ul>
+			</div>
+		</div>
+	</div><br>
+
+	<div class="container"><br>
+		<div class="row justify-content-md-center" id="my_questions">
+
+		</div><br>
+	</div>
+
+{% endblock %}
+{% block js-file %}
+    {% load staticfiles %}
+    <script src="{% static 'js/my_questions.js' %}"></script>
+{% endblock %}

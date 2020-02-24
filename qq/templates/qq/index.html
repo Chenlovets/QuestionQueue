@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css-file %}<link rel="stylesheet" href= "{% static 'css/index.css' %}">{% endblock %}
+{% block title %}Welcome{% endblock %}
+{% block nav-bar %}{% endblock %}
+{% block content %}
+    {% for message in messages %}
+		<div class="alert {{ message.tags }} alert-dismissible" role="alert">
+		   	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		    	<span aria-hidden="true">&times;</span>
+		    </button>
+		    {{ message }}
+		</div>
+	{% endfor %}
+	{% load socialaccount %}
+	<div class="welcome">
+		<div class="row mr-0 ml-0">
+			<div class="col pr-0 pl-0 pb-3"><br>
+				<span>Question Queue</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="description">
+		<div class="row">
+			<div class="col pr-0 pl-0 pb-3">
+				<span>My Heart is in the Work!</span>
+			</div>
+		</div>
+	</div><br>
+
+	<div class="container">
+		<div class="row justify-content-md-center">
+			<div class="col-2">
+				{% if user.is_authenticated %}
+				<a class="btn btn-dark btn-block login" id="logout" href="{% url 'logout' %}">Log out</a>
+                {% else %}
+				<a class="btn btn-dark btn-block login"  id="login" href="{% provider_login_url 'google' %}">Log In</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block footer %}
+        <!-- Footer -->
+        <footer  class="page-footer font-small">
+            <!-- Copyright -->
+            <div class="footer-copyright text-center text-muted py-3">© 2019 Copyright: Danni Wang, Yilin Li, Zichen Li
+            </div>
+            <!-- Copyright -->
+        </footer>
+{% endblock %}

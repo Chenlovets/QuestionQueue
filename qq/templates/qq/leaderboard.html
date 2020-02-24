@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load staticfiles%}
+{% block title %}Leaderboard{% endblock %}
+{% block content %}
+
+<div class="container" onload="getStudentsInfo()">
+	<div class="container text-center"><br><br>  
+		<h2>{{course_number}} - Leaderboard</h2>
+        <input type="hidden" id="course_id" name="course_id" value="{{ course_id }}" onload="getStudentsInfo()">
+
+		<br><br>
+	</div>
+
+		<table class="table">
+			<thead class="thead-light">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col" class="text-center">Name</th>
+					<th scope="col" class="text-center">Questions raised</th>
+					<th scope="col" class="text-center">Likes received</th>
+					<th scope="col" class="text-center">Bonus point</th>
+				</tr>
+			</thead>
+			<tbody id="board">
+
+    </tbody>
+</table>
+<hr>
+</div>
+
+<script src="{% static 'js/leaderboard.js' %}"></script>
+
+{% endblock %}

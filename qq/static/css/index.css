@@ -1,0 +1,37 @@
+body {
+    /*Image Source: Creative Dreams Design (https://www.facebook.com/design.creativedreams)*/
+    background-image: url('/static/images/background.jpg');
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: 100%;
+    min-height: 800px;
+}
+
+.welcome {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 60px;
+    font-weight: 700;
+}
+
+.description {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    font-weight: 400;
+}
+
+.login {
+    border-width: 1px 1px 1px;
+    border-color: lightgray;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.member {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+}
+

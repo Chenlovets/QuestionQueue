@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}QuestionQ{% endblock %}
+{% block content %}
+
+<div class="container text-center"><br> 
+  <h2>Log In!</h2><br>
+</div>
+  <div class="row justify-content-center">
+    <div class="col-6">
+          <form method="post" novalidate>
+            {% csrf_token %}
+            {{ form|crispy }}
+            <p>Don't have an account?  Sign up <a href="{% url 'register' %}">here</a></p>
+            <br>
+            <button type="submit" class="btn btn-lg btn-block btn-secondary">Log In</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+
+{% endblock %}

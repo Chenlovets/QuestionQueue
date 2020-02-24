@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load staticfiles%}
+
+{% block title %} QuestionQ {% endblock %}
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-5 pr-3"><br>
+                <div class="cards" id="questions">
+
+                {% for question in questions %}
+
+                <div class="card-container">
+                    <div class="card card-front">
+                        <div class="card-body">
+                            <h6 class="card-title">{{ question.title }}</h6>
+                            <div class="question-body">
+                            <p class="card-text mb-1">{{ question.description }}</p>
+                            </div>
+                            <div class="row pt-0 pb-2">
+                            <div class="col-sm-12  col-md-6" align="left" ><button onclick="flip(this)" class="viewbutton">
+                            <ion-icon name="eye" class="view" ></ion-icon></button>
+                            </div>
+                            <div class="col-sm-12  col-md-6 pr-0" align="right">
+                            <ion-item id="likedIcon">
+                            {% if question.is_liked %}
+                            <button onclick="dislike(this)" class="likebutton">
+                            <input type="hidden" id="questionID" name="questionID" value="{{question.id}}">
+                            <i class="fa fa-thumbs-up thumb-style"></i></button>
+                            {% else %}
+                            <button onclick="like(this)" class="likebutton">
+                            <i class="fa fa-thumbs-o-up thumb-style"></i></button>
+                            {% endif %}
+                            <input type="hidden" id="questionID" name="questionID" value="{{question.id}}">&nbsp;&nbsp;<ion-badge slot="end">{{question.likes}}</ion-badge>
+                            </ion-item>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="card card-back" onmouseleave="flipBack(this)">
+                <div class="card-body">
+                <h6 class="card-title">Answer</h6>
+                <div class="question-body pr-0">
+                <ul class="list-group list-group-flush">
+                {% for answer in question.answers %}
+   
+                {{answer}}
+                {% endfor %}
+            </ul></div></div><br></div></div><br>
+            {% endfor %}
+
+
+                </div>
+            </div>
+            <div class="col-7 border-left border-secondary pl-3"><br>
+                <ul class="nav nav-tabs small justify-content-end" role="tablist">
+                    <li class="nav-item"><a class="nav-link active input-tab" data-toggle="tab" href="#tab2" role="tab">Ask Question</a></li>
+                </ul><br>
+                <form action="postQuestion" method="post" >
+                    {% csrf_token %}
+                    <input type="hidden" id="lecture_id" name="lecture_id" value={{lecture_id}}>
+                    <input type="hidden" id="course_id" name="course_id" value={{course_id}}>
+
+                    <div class="input-group mb-3">
+                        <input type="text" placeholder="Question Title" required class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="title">
+                    </div>
+                    <textarea class="form-control" rows="17" placeholder="Type your question here..." required name="content"></textarea><br>
+                    <button type="submit" class="btn btn-secondary btn-lg btn-block ask">Queue Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js-file %}
+
+    <script src="{% static 'js/main.js' %}"></script>
+
+{% endblock %}
